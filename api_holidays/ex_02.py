@@ -34,6 +34,6 @@ def main(year: str, country_code: str):
 if __name__ == "__main__":
     # year, country_code = get_input()
     year = "2026"
-    country_code_list = ["BR", "US", "DE", "FR", "IT"]
+    country_code_list = ["BR", "US", "DE", "FR"]
     for country_code in country_code_list:
         main(year, country_code)
