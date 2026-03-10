@@ -1,5 +1,6 @@
-import requests
 import json
+import requests
+
 
 
 def get_input():
@@ -23,13 +24,31 @@ def get_holidays(year: str, country_code: str):
     data = json.loads(response.content.decode("utf-8"))
     return data
 
+def extrair_dados_feriado(holiday: dict):
+    '''Extrai a data, o nome local e o nome em inglês de um dicionário de feriado.'''
+    date = holiday['date']
+    local_name = holiday['localName']
+    name = holiday['name']
+    return date, local_name, name
+
+def print_country(year: str, country_code: str):
+    '''Imprime o nome do país e o ano para os quais os feriados estão sendo consultados.'''
+    print(f"\nFeriados em {country_code} para o ano de {year}:")
+
+def print_holiday(date: str, local_name: str, name: str):  
+    '''imprime as infirmaçoes do feriado'''
+    print(f"{date}: {local_name} ({name})")
+
+
 def main(year: str, country_code: str):
     data = get_holidays(year, country_code)
 
-    print(f"Feriados em {country_code} para o ano de {year}:")
+    print_country(year, country_code)
+
     for holiday in data:
         print(f"{holiday['date']}: {holiday['localName']} ({holiday['name']})")
-        
+    date, local_name, name = extrair_dados_feriado(holiday)
+    print_holiday(date, local_name, name)  
 
 if __name__ == "__main__":
     # year, country_code = get_input()
