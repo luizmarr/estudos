@@ -46,20 +46,21 @@ def print_holiday(date: str, local_name: str, name: str):
     print(f"{date}: {local_name} ({name})")
 
 
-def main(year: str, country_code: str, month: str):
+def main(year: str, country_code: str, month: int):
     data = get_holidays(year, country_code, month)
 
     print_country(year, country_code, month)
 
     for holiday in data:
-        print(f"{holiday['date']}: {holiday['localName']} ({holiday['name']})")
-    date, local_name, name = extrair_dados_feriado(holiday)
-    print_holiday(date, local_name, name)  
+        date, local_name, name = extrair_dados_feriado(holiday)
+
+        holiday_month = int(date.split("-")[1])
+
+        if month == 0 or holiday_month == month:
+            print_holiday(date, local_name, name)
 
 if __name__ == "__main__":
-    # year, country_code, month = get_input()
+    year, country_code, month = get_input()
     year = "2026"
     country_code_list = ["BR", "US", "DE", "FR", "IT"]
-    month = 12  # Exemplo: consultar feriados do mês de dezembro
-    for country_code in country_code_list:
-        main(year, country_code, month)
+    main(year, country_code, month)
