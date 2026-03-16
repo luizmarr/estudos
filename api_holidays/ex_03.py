@@ -1,12 +1,39 @@
 import json
 import requests
+import urllib3
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+def validate_year(year: str) -> bool:
+    '''Valida se o ano é um número inteiro de 4 dígitos.
+
+    Args:
+        year (str): O ano a ser validado.
+    Returns:
+        bool: True se o ano for válido, False caso contrário.
+    '''
+    return year.isdigit() and len(year) == 4
+
+
+def validate_country_code(country_code: str) -> bool:
+    pass  # adiciona o codigo aqui e remova o pass
+
+
+def validate_month(month: str) -> bool:
+    pass  # adiciona o codigo aqui e remova o pass
 
 
 def get_input():
     year = input("Digite o ano para consultar os feriados: ")
+    
+    while not validate_year(year):
+        print("Ano inválido. Por favor, digite um ano válido (4 dígitos).")
+        year = input("Digite o ano para consultar os feriados: ")
+
     country_code = input("Digite o código do país (ex: BR para Brasil): ")
-    month = int(input("Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or 0)
+    month = int(input(
+        "Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or 0)
     return year, country_code, month
 
 
@@ -26,6 +53,7 @@ def get_holidays(year: str, country_code: str, month: int):
     data = json.loads(response.content.decode("utf-8"))
     return data
 
+
 def extrair_dados_feriado(holiday: dict):
     '''Extrai a data, o nome local e o nome em inglês de um dicionário de feriado.'''
     date = holiday['date']
@@ -34,14 +62,17 @@ def extrair_dados_feriado(holiday: dict):
     month = date.split("-")[1]  # Extrai o mês da data (formato YYYY-MM-DD)
     return date, local_name, name
 
+
 def print_country(year: str, country_code: str, month: int):
     '''Imprime o nome do país e o ano para os quais os feriados estão sendo consultados.'''
     if month:
-        print(f"\nFeriados em {country_code} para o ano de {year} e o mês de {month}:")
+        print(
+            f"\nFeriados em {country_code} para o ano de {year} e o mês de {month}:")
     else:
         print(f"\nFeriados em {country_code} para o ano de {year}:")
 
-def print_holiday(date: str, local_name: str, name: str):  
+
+def print_holiday(date: str, local_name: str, name: str):
     '''imprime as infirmaçoes do feriado'''
     print(f"{date}: {local_name} ({name})")
 
@@ -59,10 +90,19 @@ def main(year: str, country_code: str, month: int):
         if month == 0 or holiday_month == month:
             print_holiday(date, local_name, name)
 
+
 if __name__ == "__main__":
     year, country_code, month = get_input()
+<<<<<<< HEAD
     country_code_list = ["BR", "US", "DE", "FR", "IT"]
     if country_code not in country_code_list:
         print("Código do país inválido.")
     else:
         main(year, country_code, month)
+=======
+    # year = "2026" se deixar esse env setado, ele irá usar esse valor ao invés do input
+    
+    # essa lista tem que ir para a função de validação de código de país
+    country_code_list = ["BR", "US", "DE", "FR", "IT"]
+    main(year, country_code, month)
+>>>>>>> 58caf64ad268a82e10cf356903a53bc6350b0b87
