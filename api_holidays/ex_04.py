@@ -1,4 +1,3 @@
-import json
 import requests
 
 
@@ -6,11 +5,11 @@ import requests
 def get_input():
     year = input("Digite o ano para consultar os feriados: ")
     country_code = input("Digite o código do país (ex: BR para Brasil): ")
-    month = int(input("Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or 0)
+    month = int(input("Digite o mês de 1 a 12 para consultar os feriados (opcional, deixe em branco para todos os meses): ") or 0)
     return year, country_code, month
 
 
-def get_holidays(year: str, country_code: str, month: int):
+def get_holidays(year: str, country_code: str,):
     """
     Consulta os feriados públicos de um país para um determinado ano usando a API do Nager.Date.
     Args:
@@ -23,7 +22,7 @@ def get_holidays(year: str, country_code: str, month: int):
     """
     url = f"https://date.nager.at/api/v3/PublicHolidays/{year}/{country_code}"
     response = requests.get(url=url, verify=False)
-    data = json.loads(response.content.decode("utf-8"))
+    data = response.json()
     return data
 
 def extrair_dados_feriado(holiday: dict):
@@ -31,8 +30,13 @@ def extrair_dados_feriado(holiday: dict):
     date = holiday['date']
     local_name = holiday['localName']
     name = holiday['name']
-    month = date.split("-")[1]  # Extrai o mês da data (formato YYYY-MM-DD)
     return date, local_name, name
+
+def mostrar_feriados_todos_paises(year: str, month: int):
+    country_code_list = ["BR", "US", "DE", "FR", "IT"]
+
+    for country_code in country_code_list:
+        main(year, country_code, month)
 
 def print_country(year: str, country_code: str, month: int):
     '''Imprime o nome do país e o ano para os quais os feriados estão sendo consultados.'''
@@ -42,12 +46,12 @@ def print_country(year: str, country_code: str, month: int):
         print(f"\nFeriados em {country_code} para o ano de {year}:")
 
 def print_holiday(date: str, local_name: str, name: str):  
-    '''imprime as infirmaçoes do feriado'''
+    '''imprime as informaçoes do feriado'''
     print(f"{date}: {local_name} ({name})")
 
 
 def main(year: str, country_code: str, month: int):
-    data = get_holidays(year, country_code, month)
+    data = get_holidays(year, country_code)
 
     print_country(year, country_code, month)
 
@@ -61,8 +65,16 @@ def main(year: str, country_code: str, month: int):
 
 if __name__ == "__main__":
     year, country_code, month = get_input()
-    country_code_list = ["BR", "US", "DE", "FR", "IT"]
-    if country_code not in country_code_list:
-        print("Código do país inválido.")
-    else:
+    main(year, country_code, month)
+
+    opcao = input("Digite 1 para consultar um país ou 2 para consultar todos os países: ")
+
+    if opcao == "1":
         main(year, country_code, month)
+
+    elif opcao == "2":
+        mostrar_feriados_todos_paises(year, month)
+
+    else:
+        print("Opção inválida.")
+        
