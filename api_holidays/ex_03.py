@@ -93,16 +93,15 @@ def main(year: str, country_code: str, month: int):
 
 if __name__ == "__main__":
     year, country_code, month = get_input()
-<<<<<<< HEAD
+
     country_code_list = ["BR", "US", "DE", "FR", "IT"]
     if country_code not in country_code_list:
         print("Código do país inválido.")
     else:
         main(year, country_code, month)
-=======
     # year = "2026" se deixar esse env setado, ele irá usar esse valor ao invés do input
     
     # essa lista tem que ir para a função de validação de código de país
     country_code_list = ["BR", "US", "DE", "FR", "IT"]
     main(year, country_code, month)
->>>>>>> 58caf64ad268a82e10cf356903a53bc6350b0b87
+
