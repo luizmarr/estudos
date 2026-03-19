@@ -40,30 +40,32 @@ def validate_month(month: str) -> bool:
         return True  # Permite que o mês seja opcional
     return month.isdigit() and 1 <= int(month) <= 12
 
+
 def get_input():
     year = input("Digite o ano para consultar os feriados: ")
-    
+
     while not validate_year(year):
         print("Ano inválido. Por favor, digite um ano válido (4 dígitos).")
         year = input("Digite o ano para consultar os feriados: ")
 
     country_code = input("Digite o código do país (ex: BR para Brasil): ")
+
     while not validate_country_code(country_code):
         print("Código do país inválido. Por favor, digite um código de país válido (ex: BR para Brasil).")
         country_code = input("Digite o código do país (ex: BR para Brasil): ")
-    month = input("Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or "0"
+    month = input(
+        "Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or "0"
     while not validate_month(month):
         print("Mês inválido. Por favor, digite um mês válido (1-12) ou deixe em branco para todos os meses.")
-        month = input("Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or "0"
-    
+        month = input(
+            "Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or "0"
+
     if month == "":
         month = 0
     else:
         month = int(month)
 
     return year, country_code, month
-
-
 
 
 def get_holidays(year: str, country_code: str, month: int):
@@ -95,7 +97,8 @@ def extrair_dados_feriado(holiday: dict):
 def print_country(year: str, country_code: str, month: int):
     '''Imprime o nome do país e o ano para os quais os feriados estão sendo consultados.'''
     if month:
-        print(f"\nFeriados em {country_code} para o ano de {year} e o mês de {month}:")
+        print(
+            f"\nFeriados em {country_code} para o ano de {year} e o mês de {month}:")
     else:
         print(f"\nFeriados em {country_code} para o ano de {year}:")
 
@@ -120,17 +123,7 @@ def main(year: str, country_code: str, month: int):
 
 
 if __name__ == "__main__":
-   if __name__ == "__main__":
-    year, country_code, month = get_input()
-
-    opcao = input("Digite 1 para um país ou 2 para vários: ")
-
-    if opcao == "1":
-        main(year, country_code, month)
-
-    elif opcao == "2":
-        for code in ["BR", "US", "DE", "FR", "IT"]:
-            main(year, code, month)
-
-    else:
-        print("Opção inválida.")
+    if __name__ == "__main__":
+        year, country_code, month = get_input()
+        
+        main(year=year, country_code=country_code, month=month)
