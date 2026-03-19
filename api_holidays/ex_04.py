@@ -4,6 +4,29 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+def get_month_name(month_number: int) -> str:
+    '''Retorna o nome do mês correspondente ao número do mês.
+
+    Args:
+        month_number (int): O número do mês (1-12).
+    Returns:
+        str: O nome do mês correspondente ao número do mês.
+    '''
+    month_names = {
+        1: "Janeiro",
+        2: "Fevereiro",
+        3: "Março",
+        4: "Abril",
+        5: "Maio",
+        6: "Junho",
+        7: "Julho",
+        8: "Agosto",
+        9: "Setembro",
+        10: "Outubro",
+        11: "Novembro",
+        12: "Dezembro"
+    }
+    return month_names.get(month_number, "Mês inválido")
 
 def validate_year(year: str) -> bool:
     '''Valida se o ano é um número inteiro de 4 dígitos.
@@ -125,5 +148,5 @@ def main(year: str, country_code: str, month: int):
 if __name__ == "__main__":
     if __name__ == "__main__":
         year, country_code, month = get_input()
-        
+
         main(year=year, country_code=country_code, month=month)
