@@ -4,6 +4,7 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+
 def get_month_name(month_number: int) -> str:
     '''Retorna o nome do mês correspondente ao número do mês.
 
@@ -27,6 +28,7 @@ def get_month_name(month_number: int) -> str:
         12: "Dezembro"
     }
     return month_names.get(month_number, "Mês inválido")
+
 
 def validate_year(year: str) -> bool:
     '''Valida se o ano é um número inteiro de 4 dígitos.
