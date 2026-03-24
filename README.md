@@ -14,7 +14,7 @@ source .venv/Scripts/activate - ativar o ambiente virtual
 
 DICA: eu ja implementei a validação do ano, é só seguir o mesmo padrão. Para validar o código do país, você pode criar uma lista com os códigos de países válidos e verificar se o código inserido pelo usuário está nessa lista. Para validar o mês, você pode verificar se o número inserido está entre 1 e 12. se o usuario colocar algum valor errado, mostrar uma mensagem de erro e pedir para ele inserir novamente. (DICA: use um loop para isso)
 
-[ ] Ajuste para que no output mostre o nome completo do mes e país.
+[X] Ajuste para que no output mostre o nome completo do mes e país.
 
 EX:
 ANTIGO:

@@ -4,6 +4,22 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+def get_country_name(country_code: str) -> str:
+    '''Retorna o nome do país correspondente ao código do país.
+
+    Args:
+        country_code (str): O código do país (ex: BR para Brasil).
+    Returns:
+        str: O nome do país correspondente ao código do país.
+    '''
+    country_names = {
+        "BR": "Brasil",
+        "US": "Estados Unidos",
+        "DE": "Alemanha",
+        "FR": "França",
+        "IT": "Itália"
+    }
+    return country_names.get(country_code, "Código de país inválido")
 
 def get_month_name(month_number: int) -> str:
     '''Retorna o nome do mês correspondente ao número do mês.
@@ -93,7 +109,7 @@ def get_input():
     return year, country_code, month
 
 
-def get_holidays(year: str, country_code: str, month: int):
+def get_holidays(year: str, get_country_name: str, month: int):
     """
     Consulta os feriados públicos de um país para um determinado ano usando a API do Nager.Date.
     Args:
@@ -123,9 +139,9 @@ def print_country(year: str, country_code: str, month: int):
     '''Imprime o nome do país e o ano para os quais os feriados estão sendo consultados.'''
     if month:
         print(
-            f"\nFeriados em {country_code} para o ano de {year} e o mês de {month}:")
+            f"\nFeriados em {get_country_name(country_code)} para o ano de {year} e o mês de {get_month_name(month)}:")
     else:
-        print(f"\nFeriados em {country_code} para o ano de {year}:")
+        print(f"\nFeriados em {get_country_name(country_code)} para o ano de {year}:")
 
 
 def print_holiday(date: str, local_name: str, name: str):
