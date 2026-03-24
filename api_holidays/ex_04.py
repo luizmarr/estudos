@@ -1,8 +1,12 @@
+## importações ##
+
 import json
 import requests
 import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+## Funções ##
 
 def get_country_name(country_code: str) -> str:
     '''Retorna o nome do país correspondente ao código do país.
@@ -162,6 +166,7 @@ def main(year: str, country_code: str, month: int):
         if month == 0 or holiday_month == month:
             print_holiday(date, local_name, name)
 
+## Codigo principal ##
 
 if __name__ == "__main__":
     if __name__ == "__main__":
