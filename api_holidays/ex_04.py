@@ -99,7 +99,7 @@ def get_input():
         print("Código do país inválido. Por favor, digite um código de país válido (ex: BR para Brasil).")
         country_code = input("Digite o código do país (ex: BR para Brasil): ")
     month = input(
-        "Digite o mês para consultar os feriados (opcional, deixe em branco para todos os meses): ") or "0"
+        "Digite o mês para consultar os feriados (opcional deixe em branco para todos os meses): ") or "0"
     while not validate_month(month):
         print("Mês inválido. Por favor, digite um mês válido (1-12) ou deixe em branco para todos os meses.")
         month = input(
