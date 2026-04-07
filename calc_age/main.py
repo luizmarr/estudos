@@ -25,6 +25,7 @@ class Person:
         return age
 
     # LUIZ precisa criar um metodo para validar se a data e correta
+    # aceitar ano com dois digitos e com quatro digitos
 
 if __name__ == "__main__":
     name = input("Digite o nome da pessoa: ")
