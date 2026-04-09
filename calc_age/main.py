@@ -22,7 +22,18 @@ class Person:
 
         print(f"{person.name} tem {age} anos.")
 
-        return age
+    def validate_date(self, date_str: str) -> bool:
+        """Valida se a data fornecida está no formato correto e é uma data válida.
+        Args:
+            date_str (str): A data a ser validada no formato "YYYY-MM-DD".
+        Returns:
+            bool: True se a data for válida, False caso contrário.
+        """
+        try:
+            datetime.strptime(date_str, "%Y-%m-%d")
+            return True
+        except ValueError:
+            return False
 
     # LUIZ precisa criar um metodo para validar se a data e correta
     # aceitar ano com dois digitos e com quatro digitos
