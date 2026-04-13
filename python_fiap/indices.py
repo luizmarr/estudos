@@ -1,24 +1,34 @@
-pessoa = []
-nome = []
-cidade = []
-idade = []
-telefone = []
+class pessoa:
+    def __init__(self, nome, idade, cidade):
+        self.nome = nome
+        self.idade = idade
+        self.cidade = cidade
 
-respostas = "s"
+    def receber_dados(self):
+        self.nome = input("Digite o seu nome: ")
+        self.idade = int(input("Digite a sua idade: "))
+        self.cidade = input("Digite a sua cidade: ")
+          
+    def imprimir_dados(self):
+        print(f"Nome: {self.nome}")
+        print(f"Idade: {self.idade}")
+        print(f"Cidade: {self.cidade}")
+ 
 
-while respostas == "s":
-    pessoa.append({})   
-    nome.append(input("Digite o seu nome: "))
-    cidade.append(input("Digite a sua cidade: "))
-    idade.append(int(input("Digite a sua idade: ")))
-    telefone.append(input("Digite o seu telefone: "))
-    respostas = input("Deseja continuar? (s/n): ")
+lista_pessoa = []
+resposta = "s"
+while resposta.lower() == "s":
+    p = pessoa("", 0, "")
+    p.receber_dados()
+    lista_pessoa.append(p)
+    resposta = input("Deseja adicionar outra pessoa? (s/n): ").lower()
 
-for i in range(len(nome)):
-    pessoa[i]["nome"] = nome[i]
-    pessoa[i]["cidade"] = cidade[i]
-    pessoa[i]["idade"] = idade[i]
-    pessoa[i]["telefone"] = telefone[i]
+busca = input("Digite o nome da pessoa que deseja buscar: ")
+for p in lista_pessoa:
+    if p.nome.lower() == busca.lower():
+        p.imprimir_dados()
+        encontrado = True
+        break    
+    else:    print("Pessoa não encontrada.")
 
-print(pessoa)
-    
+
