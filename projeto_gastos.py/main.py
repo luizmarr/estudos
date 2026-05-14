@@ -1,6 +1,7 @@
+from cProfile import label
 import json
 import tkinter as tk
-from tkinter import messagebox  
+from tkinter import mainloop, messagebox  
 
 def adicionar_gasto(categoria, valor, gastos):
     gastos.append((categoria, valor))
@@ -10,9 +11,9 @@ def calcular_total_gastos(gastos):
     return total
 
 def exibir_gastos(gastos):
-    print("Gastos:")
+    label_gastos.config(text="Gastos:")
     for categoria, valor in gastos:
-        print(f"{categoria}: R${valor:.2f}")
+        label_gastos.config(text=label_gastos.cget("text") + f"\n{categoria}: R${valor:.2f}")
 
 def salvar_gastos(gastos, nome_arquivo):
     with open(nome_arquivo, 'w') as arquivo:
@@ -31,37 +32,37 @@ def remover_gasto(categoria, gastos):
     gastos[:] = [gasto for gasto in gastos if gasto[0] != categoria]
 def main():
     gastos = carregar_gastos("gastos.json")
-    while True:
-        print("\nMenu:")
-        print("1. Adicionar gasto")
-        print("2. Exibir gastos")
-        print("3. Calcular total de gastos")
-        print("4. Salvar e sair")
-        print("5. Remover gasto")
-        escolha = input("Escolha uma opção: ")
-
-        if escolha == "1":
-            categoria = input("Digite a categoria do gasto: ")
-            while True:
-                try:
-                    valor = float(input("Digite o valor do gasto: "))
-                    break
-                except ValueError:
-                    print("Valor inválido. Por favor, digite um número.")
-            adicionar_gasto(categoria, valor, gastos)
-        elif escolha == "2":
-            exibir_gastos(gastos)
-        elif escolha == "3":
-            total = calcular_total_gastos(gastos)
-            print(f"Total de gastos: R${total:.2f}")
-        elif escolha == "4":
-            salvar_gastos(gastos, "gastos.json")
-            print("Gastos salvos. Saindo do programa.")
-            break
-        elif escolha == "5":
-            categoria = input("Digite a categoria do gasto a ser removido: ")
-            remover_gasto(categoria, gastos)
-        else:
-            print("Opção inválida. Por favor, tente novamente.")
-
-if __name__ == "__main__":    main()
+    janela = tk.Tk()
+    janela.title("Gerenciador de Gastos")
+    label_menu = tk.Label(janela, text="Menu:")
+    label_menu.pack()
+    label_opcao1 = tk.Label(janela, text="1. Adicionar gasto")
+    label_opcao1.pack()
+    label_opcao2 = tk.Label(janela, text="2. Exibir gastos")
+    label_opcao2.pack()
+    label_opcao3 = tk.Label(janela, text="3. Calcular total de gastos")
+    label_opcao3.pack()
+    label_opcao4 = tk.Label(janela, text="4. Salvar e sair")
+    label_opcao4.pack()
+    label_opcao5 = tk.Label(janela, text="5. Remover gasto")
+    label_opcao5.pack()
+       
+    escolha = entry("Escolha uma opção: ")
+    if escolha == "1":
+        categoria = entry("Digite a categoria do gasto: ")
+        valor = float(entry("Digite o valor do gasto: "))
+        adicionar_gasto(categoria, valor, gastos)
+    elif escolha == "2":
+        exibir_gastos(gastos)
+    elif escolha == "3":
+        total = calcular_total_gastos(gastos)
+        messagebox.showinfo("Total de Gastos", f"O total de gastos é: R${total:.2f}")
+    elif escolha == "4":
+        salvar_gastos(gastos, "gastos.json")
+        janela.destroy()
+    elif escolha == "5":
+        categoria = entry("Digite a categoria do gasto a ser removida: ")
+        remover_gasto(categoria, gastos)
+    else:
+        messagebox.showerror("Opção inválida", "Por favor, escolha uma opção válida.")
+if __name__ == "__main__":    mainloop()
